@@ -3,27 +3,22 @@ package com.eremin;
 import java.util.Stack;
 
 public class StringBuilderHistory {
-    private final Stack<SnapshotStringBuilder.Memento> history = new Stack<>();
-    private final SnapshotStringBuilder editor;
+    private final Stack<SnapshotStringBuilder.Memento> undoStack = new Stack<>();
 
-    public StringBuilderHistory(SnapshotStringBuilder editor) {
-        this.editor = editor;
+    public void push(SnapshotStringBuilder.Memento memento) {
+        undoStack.push(memento);
     }
 
-    public void append(String text) {
-        history.push(editor.save());
-        editor.append(text);
-    }
-
-    public void delete(int start, int end) {
-        history.push(editor.save());
-        editor.delete(start, end);
-    }
-
-    public void undo() {
-        if (!history.isEmpty()) {
-            editor.restore(history.pop());
+    public SnapshotStringBuilder.Memento pop() {
+        if (undoStack.isEmpty()) {
+            return null;
         }
+
+        return undoStack.pop();
+    }
+
+    public boolean isEmpty() {
+        return undoStack.isEmpty();
     }
 }
 

@@ -2,16 +2,16 @@ package com.eremin;
 
 public class Main {
     public static void main(String[] args) {
-        SnapshotStringBuilder editor = new SnapshotStringBuilder();
-        StringBuilderHistory history = new StringBuilderHistory(editor);
 
-        history.append("Hello");
-        history.append(" World");
+        EditorFacade app = new EditorFacade();
 
-        System.out.println(editor.getText());
+        app.append("Hello");
+        app.append(" World");
 
-        history.undo();
+        System.out.println(app.getText());
 
-        System.out.println(editor.getText());
+        app.undo();
+
+        System.out.println(app.getText());
     }
 }

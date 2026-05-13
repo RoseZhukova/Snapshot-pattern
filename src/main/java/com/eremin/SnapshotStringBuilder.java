@@ -15,12 +15,14 @@ public class SnapshotStringBuilder {
         return text.toString();
     }
 
+    // ===== Memento =====
+
     public Memento save() {
         return new Memento(text.toString());
     }
 
     public void restore(Memento memento) {
-        text = new StringBuilder(memento.getState());
+        text = new StringBuilder(memento.state);
     }
 
     public static class Memento {
@@ -28,10 +30,6 @@ public class SnapshotStringBuilder {
 
         private Memento(String state) {
             this.state = state;
-        }
-
-        private String getState() {
-            return state;
         }
     }
 }
